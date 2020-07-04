@@ -113,6 +113,10 @@ const asideMenuConfig = [
       {
         path: '/useCallback',
         name: 'useCallback'
+      },
+      {
+        path: '/useReducer',
+        name: 'useReducer'
       }
 
     ]
