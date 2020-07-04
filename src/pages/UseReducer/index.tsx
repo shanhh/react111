@@ -2,33 +2,35 @@ import React, {Fragment, useReducer} from 'react'
 
 type StateType = {
   count: number;
+  name?: string;
 }
 
 type ActionType = {
   type: 'reset' | 'decrement' | 'increment';
 }
 
-const initialState = { count: 0 }
+const initialState = { count: 0, name: '单浩辉' }
 
 function reducer (state: StateType, action: ActionType): StateType {
   switch (action.type) {
     case 'reset':
       return initialState
     case 'increment':
-      return { count: state.count + 1 }
+      return {... state, count: state.count + 1 }
     case 'decrement':
-      return { count: state.count - 1 }
+      return {... state, count: state.count - 1 }
     default:
       return state
   }
 }
 
 const Count: React.FC = () => {
-  const [state, dispatch] = useReducer(reducer, { count: 0 })
+  const [state, dispatch] = useReducer(reducer, initialState)
 
   return (
     <Fragment >
-       Count: {state.count}
+      <div>Count: {state.count}</div>
+      <div> Name: {state.name}</div>
       <button type='button' onClick={ (): void => dispatch({ type: 'reset' }) }>Reset</button>
       <button type='button' onClick={ (): void => dispatch({ type: 'increment' }) }>+</button>
       <button type='button' onClick={ (): void => dispatch({ type: 'decrement' }) }>-</button>
