@@ -40,7 +40,8 @@ const UseReducer: React.FC = () => {
   return (
     <>
       <h1>useReducer</h1>
-      <h3>有没有想过你在某个组件里写了很多很多的useState</h3>
+      <h3>有没有想过你在某个组件里写了很多很多的useState </h3>
+      <h3>useState中的state可以是个对象？ 如何写  </h3>
       <Count/>
     </>
   )
