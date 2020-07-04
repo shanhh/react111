@@ -117,6 +117,10 @@ const asideMenuConfig = [
       {
         path: '/useReducer',
         name: 'useReducer'
+      },
+      {
+        path: '/useContext',
+        name: 'useContext'
       }
 
     ]

@@ -12,6 +12,7 @@ import UseRef from '@/pages/UseRef'
 import UseMemo from '@/pages/UseMemo'
 import UseCallback from '@/pages/UseCallback'
 import UseReducer from '@/pages/UseReducer'
+import UseContext from '@/pages/UseContext'
 
 const routes = [{
   path: '/about',
@@ -63,6 +64,10 @@ const routes = [{
   path: '/useReducer',
   exact: true,
   component: UseReducer
+}, {
+  path: '/useContext',
+  exact: true,
+  component: UseContext
 },
 {component: NotFound}]
 
