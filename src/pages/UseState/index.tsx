@@ -16,7 +16,7 @@ const UseState: React.FC = () => {
       <br/>
       <div>{person.name}</div>
       <div>{person.age}</div>
-      <div onClick={ (): void=> setPerson({name: 'Nobel', age: count}) }>点击我试试</div>
+      <div onClick={ (): void=> setPerson({... person, age: count}) }>点击我试试</div>
     </>
   )
 }
