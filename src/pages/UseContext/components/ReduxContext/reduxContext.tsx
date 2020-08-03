@@ -8,7 +8,7 @@ export type StateType = {
 
 export type ActionType = {
   type: string;
-  payload: Function | string;
+  payload: Promise<any> | string;
 }
 
 export type MixStateAndDispatch = {
@@ -23,10 +23,10 @@ const isPromise = (obj: any): boolean => {
   )
 }
 
-export const wrapperDispatch = (dispatch: Function): Function => {
+export const wrapperDispatch = (dispatch: React.Dispatch<ActionType>): React.Dispatch<ActionType> => {
   return function (action): void {
     if (isPromise(action.payload)) {
-      action.payload.then(v => {
+      (action.payload as Promise<any>).then(v => {
         dispatch({ type: action.type, payload: v })
       })
     } else {

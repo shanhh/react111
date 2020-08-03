@@ -1,7 +1,7 @@
 import React, {useContext, useReducer} from 'react'
 import {ColorContext, reducer, UPDATE_COLOR, wrapperDispatch} from './reduxContext'
 
-const asyncFetch = () => {
+const asyncFetch = (): Promise<string> => {
   return new Promise((resolve) => {
     setTimeout(() =>{
       resolve('#999999')
