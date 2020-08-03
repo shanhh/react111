@@ -8,18 +8,37 @@ export type StateType = {
 
 export type ActionType = {
   type: string;
-  color: string;
+  payload: Function | string;
 }
 
 export type MixStateAndDispatch = {
   state: StateType;
   dispatch?: React.Dispatch<ActionType>;
 }
+const isPromise = (obj: any): boolean => {
+  return (
+    !!obj &&
+    (typeof obj === 'object' || typeof obj === 'function') &&
+    typeof obj.then === 'function'
+  )
+}
+
+export const wrapperDispatch = (dispatch: Function): Function => {
+  return function (action): void {
+    if (isPromise(action.payload)) {
+      action.payload.then(v => {
+        dispatch({ type: action.type, payload: v })
+      })
+    } else {
+      dispatch(action)
+    }
+  }
+}
 
 export const reducer = (state: StateType, action: ActionType): StateType => {
   switch (action.type) {
     case UPDATE_COLOR:
-      return { color: action.color }
+      return {... state, color: action.payload as string}
     default:
       return state
   }

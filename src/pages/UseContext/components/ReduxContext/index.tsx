@@ -1,5 +1,13 @@
 import React, {useContext, useReducer} from 'react'
-import {ColorContext, reducer, UPDATE_COLOR} from './reduxContext'
+import {ColorContext, reducer, UPDATE_COLOR, wrapperDispatch} from './reduxContext'
+
+const asyncFetch = () => {
+  return new Promise((resolve) => {
+    setTimeout(() =>{
+      resolve('#999999')
+    }, 2000)
+  })
+}
 
 interface IShowProps {
   text: string;
@@ -11,8 +19,9 @@ const Show: React.FC<IShowProps> = (props) => {
     <div style={ { color: state.color } }>
       当前字体颜色为: {state.color}
       <div>我是{props.text}</div>
-      <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, color: 'red'}) }>红色</button>
-      <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, color: 'green'}) }>绿色</button>
+      <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, payload: 'red'}) }>红色</button>
+      <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, payload: 'green'}) }>绿色</button>
+      <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, payload: asyncFetch()}) }>两秒后变个色</button>
     </div>
   )
 }
@@ -21,11 +30,11 @@ const Example: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, { color: '#000000' })
 
   return (
-    <ColorContext.Provider value={ {state, dispatch} }>
+    <ColorContext.Provider value={ {state, dispatch: wrapperDispatch(dispatch)} }>
       <div>
         <div>父组件</div>
-        <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, color: 'blue'}) }>蓝色</button>
-        <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, color: 'lightblue'}) }>轻绿色</button>
+        <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, payload: 'blue'}) }>蓝色</button>
+        <button type='button' onClick={ (): void=> dispatch && dispatch({type: UPDATE_COLOR, payload: 'lightblue'}) }>轻绿色</button>
         <Show text='子组件'/>
       </div>
     </ColorContext.Provider>
